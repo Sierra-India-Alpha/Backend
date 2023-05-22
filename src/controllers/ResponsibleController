@@ -1,0 +1,19 @@
+const Responsible = require('../models/Responsible');
+
+module.exports = {
+    async store(req, res) {
+        const { name, cpf , phone_number} = req.body;
+        const [responsible] = await Responsible.findOrCreate({
+            where: {
+                cpf : cpf
+            },
+            defaults: {
+                name: name,
+                phone_number: phone_number
+            }
+        })
+
+        return res.json(responsible);
+        
+    }
+}
