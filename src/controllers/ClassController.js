@@ -34,11 +34,11 @@ module.exports = {
         return res.json(classes);
     }, 
     async store(req, res) {
-        const { name, desc, unit_id, course_id} = req.body;
+        const { name, max_students, period , unit_id, course_id} = req.body;
 
         const unit = await Unit.findByPk(unit_id);
         const course = await Course.findByPk(course_id);
-        const _class = await Class.create({name, desc, unit_id: unit.id, course_id:course});
+        const _class = await Class.create({name, max_students, period, unit_id: unit.id, course_id:course.id});
 
         return res.json(_class);
     }

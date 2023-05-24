@@ -5,37 +5,24 @@ const Course = require('../models/Course');
 const Class = require('../models/Class');
 const Unit = require('../models/Unit');
 const User = require('../models/User');
+const Status = require('../models/Status');
 
 module.exports = {
-    // async search_by_status(req, res) {
-    //     const status = req.body;
-    //     const enrollments = await Enrollment.findAll({
-    //         where: {
-    //             status_id : status
-    //         },
-    //         include: [
-    //             { association: 'student', attributes: ['name']},
-    //             { association: 'responsible', attributes: ['name', 'phone_number', 'email']},
-    //             { association: 'course', attributes: ['name']},
-    //             { association: 'class', attributes : ['name']},
-    //         ]
-    //     });
-    //     return res.json(enrollments);
-    // },
-    async filtrar_sem_unidade(req, res) {
-        const enrollments = await Enrollment.findAll({
-            attributes: ['id'],
-            include: [
-                { association: 'student', attributes: ['name']},
-                { association: 'responsible', attributes: ['name', 'phone_number', 'email']},
-                { association: 'unit', attributes: ['name']},
-                { association: 'course', attributes: ['name']},
-                { association: 'class', attributes: ['name']}
-            ]}
-        );
-            
-        return res.json(enrollments);
+    async update(req, res) {
+        const {enrollment_id} = req.params;
+        const {status_id} = req.body;
+        const status = await Status.findByPk(status_id);
+        const enrollment = await Enrollment.findByPk(enrollment_id);
+        if(!enrollment) {
+            return res.status(400).json({"error" : "Matrícula não foi encontrada"});
+        }
+
+        
+        enrollment.setStatus(status);
+        
+        return res.json(enrollment);
     },
+
 
     async filtrar_com_unidade(req, res) {
         const user_id = req.userId;
@@ -51,7 +38,8 @@ module.exports = {
                 { association: 'responsible', attributes: ['name', 'phone_number', 'email']},
                 { association: 'unit', attributes: ['name']},
                 { association: 'course', attributes: ['name']},
-                { association: 'class', attributes: ['name']}
+                { association: 'class', attributes: ['name']},
+                { association: 'status', attributes: ['name']}
             ]
             })
 
@@ -67,37 +55,12 @@ module.exports = {
                 { association: 'responsible', attributes: ['name', 'phone_number', 'email']},
                 { association: 'unit', attributes: ['name']},
                 { association: 'course', attributes: ['name']},
-                { association: 'class', attributes: ['name']}
+                { association: 'class', attributes: ['name']},
+                { association: 'status', attributes: ['name']}
             ]
         });
         return res.json(enrollments);
     },
-
-    // async search_by_class(req, res) {
-    //     const _class = req.body;
-    //     const enrollments = await Enrollment.findAll({
-    //         where: {
-    //             class_id : _class
-    //         },
-    //         include: [
-    //             { association: 'student', attributes: ['name']},
-    //             { association: 'responsible', attributes: ['name', 'phone_number', 'email']},
-    //             { association: 'course', attributes: ['name']},
-    //             { association: 'status', attributes : ['name']},
-    //         ]
-    //     }); 
-    //     return res.json(enrollments); 
-    // },
-
-    // async update_status(req, res) {
-    //     const {enrollment_id, status_id} = req.params;
-    //     const enrollment = await Enrollment.findByPk(enrollment_id);
-
-    //     if(!enrollment) {
-    //         return res.status(400).json({"error" : "Matrícula não foi encontrada"});
-    //     }
-    //     await enrollment.setStatus(status_id);
-    // },
     async store(req, res) {
         
         const { responsible_name,
@@ -117,7 +80,8 @@ module.exports = {
             student_name, 
             student_birth_date,
             student_cpf,
-            student_rg, 
+            student_rg,
+            student_gender, 
             student_sair_sozinho,
             course_name,
             unit_id,
@@ -133,6 +97,7 @@ module.exports = {
                 name: student_name,
                 birth_date: student_birth_date,
                 rg: student_rg,
+                gender: student_gender,
                 sair_sozinho: student_sair_sozinho
             }
         })
@@ -192,19 +157,15 @@ module.exports = {
     },
 
     async delete(req, res) {
-        const enrollment_id = req.params;
-        const enrollment = await Enrollment.findByPk(enrollment_id);
+        const {enrollment_id} = req.params;
+        const enrollment = await Enrollment.findByPk(enrollment_id)
         if(!enrollment) {
             return res.status(400).json({"error" : "Matrícula não foi encontrada"});
         }
 
-        enrollment
-        .setStudent(null)
-        .setResponsible(null)
-        .setStatus(null)    
-        .setCourse(null)
-        .setClass(null)
-        .setUser(null);
+        enrollment.destroy();
+
+        
         
         return res.json("Matrícula removida com sucesso");
     }

@@ -21,10 +21,10 @@ const routes = express.Router();
 
 routes.post('/login', SessionController.store);
 
-routes.get('/users', authentication.ensureAuthenticaded, is(['admin']), UserController.index);
-routes.post('/users', authentication.ensureAuthenticaded, is(['admin']), UserController.store);
-routes.get('/users/:user_id',authentication.ensureAuthenticaded, is(['admin']), UserAccessControlListController.index);
-routes.post('/users/:user_id', authentication.ensureAuthenticaded, is(['admin']),UserAccessControlListController.store);
+routes.get('/users',  UserController.index);
+routes.post('/users', UserController.store);
+routes.get('/users/:user_id', UserAccessControlListController.index);
+routes.post('/users/:user_id', UserAccessControlListController.store);
 
 routes.get('/roles', authentication.ensureAuthenticaded, is(['admin']), RoleController.index);
 routes.post('/roles', authentication.ensureAuthenticaded, is(['admin']), RoleController.store);
@@ -34,7 +34,7 @@ routes.post('/roles/:role_id', authentication.ensureAuthenticaded, is(['admin'])
 routes.get('/permissions', authentication.ensureAuthenticaded, is(['admin']),  PermissionController.index);
 routes.post('/permissions', authentication.ensureAuthenticaded, is(['admin']),PermissionController.store);
 
-routes.post('/unidades',authentication.ensureAuthenticaded, is(['admin']), UnitController.store);
+routes.post('/unidades', UnitController.store);
 
 routes.get('/cursos', authentication.ensureAuthenticaded, is(['admin', 'coordenador']), CourseController.index);
 routes.post('/cursos', authentication.ensureAuthenticaded, is(['admin', 'coordenador']), CourseController.store);
@@ -56,6 +56,16 @@ routes.get('/matriculas',
 authentication.ensureAuthenticaded,
 is(['coordenador']),
 EnrollmentController.filtrar_com_unidade);
+
+routes.patch('/matriculas/:enrollment_id',
+authentication.ensureAuthenticaded,
+is(['coordenador']),
+EnrollmentController.update);
+
+routes.delete('/matriculas/:enrollment_id',
+authentication.ensureAuthenticaded,
+is(['coordenador']),
+EnrollmentController.delete);
 
 
 module.exports = routes;

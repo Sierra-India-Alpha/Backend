@@ -7,6 +7,7 @@ class Student extends Model {
             birth_date: DataTypes.DATEONLY,
             cpf: DataTypes.STRING(11),
             rg: DataTypes.STRING(9),
+            gender: DataTypes.TINYINT,
             sair_sozinho: DataTypes.BOOLEAN
         }, {
             sequelize

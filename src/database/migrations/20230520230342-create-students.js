@@ -26,6 +26,11 @@ module.exports = {
         type: Sequelize.STRING(9),
         allowNull: false
       },
+      gender: {
+        type: Sequelize.TINYINT(1),
+        allowNull: false,
+      },
+      
       sair_sozinho: {
         type: Sequelize.BOOLEAN,
         allowNull: false
