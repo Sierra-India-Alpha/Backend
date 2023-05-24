@@ -12,6 +12,7 @@ class Enrollment extends Model {
         this.belongsTo(models.Responsible, {foreignKey: 'responsible_id', as:'responsible'});
         this.belongsTo(models.Student, {foreignKey: 'student_id', as: 'student'});
         this.belongsTo(models.Course, {foreignKey: 'course_id', as: 'course'});
+        this.belongsTo(models.Unit, {foreignKey: 'unit_id', as: 'unit' });
         this.belongsTo(models.Class, {foreignKey: 'class_id', as: 'class'});
         this.belongsTo(models.Status, {foreignKey: 'status_id', as: 'status'});
     }

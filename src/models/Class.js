@@ -12,6 +12,8 @@ class Class extends Model {
 
     static associate(models) {
         this.hasMany(models.Enrollment, { foreignKey : 'class_id', as: 'enrollments' } );
+        this.belongsTo(models.Course, {foreignKey: 'course_id', as: 'course'});
+        this.belongsTo(models.Unit, {foreignKey: 'unit_id', as: 'unit'});
     }
 }
 

@@ -16,11 +16,28 @@ module.exports = {
         allowNull: false
       },
 
-      desc: {
+      max_students: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+
+      period: {
         type: Sequelize.STRING,
         allowNull: false
       },
       
+      unit_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {model : 'unities', key : 'id'}
+      },
+      
+      course_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {model : 'courses', key: 'id'}
+      },
+
       created_at:{
         type: Sequelize.DATE,
         allowNull: false

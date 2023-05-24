@@ -14,21 +14,23 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      birth_date: {
+        type: Sequelize.DATEONLY,
+        allowNull: false
+      },
       cpf: {
         type: Sequelize.STRING(11),
         allowNull: true
       },
-
-      age: {
-        type: Sequelize.INTEGER,
+      rg: {
+        type: Sequelize.STRING(9),
         allowNull: false
       },
-
       sair_sozinho: {
         type: Sequelize.BOOLEAN,
         allowNull: false
       },
-
+      
       created_at:{
         type: Sequelize.DATE,
         allowNull: false

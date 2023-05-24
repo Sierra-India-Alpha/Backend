@@ -10,6 +10,7 @@ const Course = require('../models/Course');
 const Status = require('../models/Status');
 const Class = require('../models/Class');
 const Enrollment = require('../models/Enrollment');
+const Unit = require('../models/Unit');
 
 
 const connection = new Sequelize(dbConfig);
@@ -24,6 +25,7 @@ Course.init(connection);
 Status.init(connection);
 Class.init(connection);
 Enrollment.init(connection);
+Unit.init(connection);
 
 User.associate(connection.models);
 Role.associate(connection.models);
@@ -34,5 +36,6 @@ Course.associate(connection.models);
 Status.associate(connection.models);
 Class.associate(connection.models);
 Enrollment.associate(connection.models);
+Unit.associate(connection.models);
 
 module.exports = connection;

@@ -2,8 +2,22 @@ const User = require('../models/User');
 const Role = require('../models/Role');
 
 module.exports = {
+    async index(req, res) {
+        const {user_id} = req.params;
+        const user = await User.findByPk(user_id, {
+            include: {
+                association: 'roles',
+                attributes: ['name'],
+                through: {
+                    attributes:[]
+                }
+            }
+        })
+        return res.json(user);
+    },
     async store(req, res) {
-        const { user_id, role_id } = req.body;
+        const { user_id } = req.params;
+        const { role_name } = req.body;
 
         const user = await User.findByPk(user_id)
 
@@ -13,7 +27,7 @@ module.exports = {
         
         const [ role ] = await Role.findOrCreate({
             where: { 
-                id: role_id
+                name: role_name
             }
         });
 

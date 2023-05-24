@@ -6,6 +6,6 @@ module.exports = {
     database: 'SIA',
     define: {
         timestamps: true,
-        underscored: true
+        underscored: true,
     }
 }

@@ -3,7 +3,8 @@ const { Model, DataTypes } = require('sequelize');
 class Role extends Model {
     static init(sequelize) {
         super.init({
-            name: DataTypes.STRING
+            name: DataTypes.STRING,
+            desc: DataTypes.STRING
         }, {
             sequelize
         })

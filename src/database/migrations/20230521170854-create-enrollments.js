@@ -22,7 +22,12 @@ module.exports = {
         references: { model : 'responsibles', key: 'id'},
 
       },
-
+      unit_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'unities', key: 'id'}
+      },
+      
       course_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -48,7 +53,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {model : 'statuses', key : 'id'},
-
+        default: 1
       },
       
       created_at:{
