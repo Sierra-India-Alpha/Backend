@@ -54,7 +54,7 @@ module.exports = {
     }, 
     async store(req, res) {
         const { name, max_students, start_of_class, end_of_class , unit_id, course_id} = req.body;
-
+        
         const unit = await Unit.findByPk(unit_id);
         const course = await Course.findByPk(course_id);
         const _class = await Class.create({name, max_students, start_of_class, end_of_class, unit_id: unit.id, course_id:course.id});
