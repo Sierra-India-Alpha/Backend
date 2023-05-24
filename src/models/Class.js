@@ -4,7 +4,8 @@ class Class extends Model {
     static init(sequelize) {
         super.init({
             name: DataTypes.STRING,
-            desc: DataTypes.STRING,
+            max_students: DataTypes.INTEGER,
+            period: DataTypes.STRING
         }, {
             sequelize
         })
