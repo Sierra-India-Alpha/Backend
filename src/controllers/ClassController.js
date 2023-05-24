@@ -24,7 +24,7 @@ module.exports = {
     },
     async filtrar_com_unidade(req, res) {
         const user_id = req.userId;
-
+        
         const user = await User.findByPk(user_id);
         const unit = await user.getUnit();
         if(unit.id === 1) {

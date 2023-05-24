@@ -40,7 +40,7 @@ routes.post('/unidades', UnitController.store);
 routes.get('/cursos', CourseController.index);
 routes.post('/cursos', CourseController.store);
 
-routes.get('/turmas/:class_id',ClassController.exibir_turma);
+routes.get('/turmas/:class_id', ClassController.exibir_turma);
 routes.get('/turmas', ClassController.filtrar_com_unidade);
 routes.post('/turmas',ClassController.store);
 
@@ -49,16 +49,20 @@ routes.post('/statuses', StatusController.store);
 
 
 routes.post('/matriculas',
+authentication.ensureAuthenticaded,
 EnrollmentController.store
 );
 
 routes.get('/matriculas',
+authentication.ensureAuthenticaded,
 EnrollmentController.filtrar_com_unidade);
 
 routes.patch('/matriculas/:enrollment_id',
+authentication.ensureAuthenticaded,
 EnrollmentController.update);
 
 routes.delete('/matriculas/:enrollment_id',
+authentication.ensureAuthenticaded,
 EnrollmentController.delete);
 
 
