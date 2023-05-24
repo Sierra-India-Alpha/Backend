@@ -5,7 +5,8 @@ class Class extends Model {
         super.init({
             name: DataTypes.STRING,
             max_students: DataTypes.INTEGER,
-            period: DataTypes.STRING
+            start_of_class: DataTypes.STRING,
+            end_of_class: DataTypes.STRING
         }, {
             sequelize
         })

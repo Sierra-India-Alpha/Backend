@@ -21,7 +21,12 @@ module.exports = {
         allowNull: false
       },
 
-      period: {
+      start_of_class: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      
+      end_of_class: {
         type: Sequelize.STRING,
         allowNull: false
       },

@@ -22,8 +22,6 @@ module.exports = {
         
         return res.json(enrollment);
     },
-
-
     async filtrar_com_unidade(req, res) {
         const user_id = req.userId;
 

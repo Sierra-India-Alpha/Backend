@@ -3,7 +3,7 @@ const Unit = require('../models/Unit');
 
 module.exports ={
     async store(req, res){
-        const { name, cnpj, course_name} = req.body;
+        const { name, cnpj} = req.body;
         const unitExists = await Unit.findOne({
             where: {
                 cnpj: cnpj
@@ -16,14 +16,19 @@ module.exports ={
             name, 
             cnpj
         });
-        const course = await Course.findOrCreate({
-            where: {
-                name : course_name
-            }
-        })
-
-        await unit.addCourse(course);
-
+        
+        
         return res.json(unit);
-    }
+    },
 }
+//     async createUnitCourses(req, res) {
+//         const unit_id = req.params;
+//         const course_name
+//         const  = await Course.findOrCreate({
+//             where: {
+//                 name: course_name
+//             }
+//         })
+//         if()
+//     }
+// }
