@@ -21,29 +21,29 @@ const routes = express.Router();
 
 routes.post('/login', SessionController.store);
 
-routes.get('/users', UserController.index);
-routes.post('/users', UserController.store);
-routes.get('/users/:user_id', UserAccessControlListController.index);
-routes.post('/users/:user_id', UserAccessControlListController.store);
+routes.get('/users', authentication.ensureAuthenticaded, is(['admin']), UserController.index);
+routes.post('/users', authentication.ensureAuthenticaded, is(['admin']), UserController.store);
+routes.get('/users/:user_id',authentication.ensureAuthenticaded, is(['admin']), UserAccessControlListController.index);
+routes.post('/users/:user_id', authentication.ensureAuthenticaded, is(['admin']),UserAccessControlListController.store);
 
-routes.get('/roles', RoleController.index);
-routes.post('/roles', RoleController.store);
-routes.get('/roles/:role_id', authentication.ensureAuthenticaded, RolesPermissionsController.index);
-routes.post('/roles/:role_id', authentication.ensureAuthenticaded, RolesPermissionsController.store);
+routes.get('/roles', authentication.ensureAuthenticaded, is(['admin']), RoleController.index);
+routes.post('/roles', authentication.ensureAuthenticaded, is(['admin']), RoleController.store);
+routes.get('/roles/:role_id', authentication.ensureAuthenticaded, is(['admin']), RolesPermissionsController.index);
+routes.post('/roles/:role_id', authentication.ensureAuthenticaded, is(['admin']), RolesPermissionsController.store);
 
-routes.get('/permissions', authentication.ensureAuthenticaded,  PermissionController.index);
-routes.post('/permissions', authentication.ensureAuthenticaded, PermissionController.store);
+routes.get('/permissions', authentication.ensureAuthenticaded, is(['admin']),  PermissionController.index);
+routes.post('/permissions', authentication.ensureAuthenticaded, is(['admin']),PermissionController.store);
 
-routes.post('/unidades',authentication.ensureAuthenticaded, UnitController.store);
+routes.post('/unidades',authentication.ensureAuthenticaded, is(['admin']), UnitController.store);
 
-routes.get('/courses', authentication.ensureAuthenticaded, CourseController.index);
-routes.post('/courses', authentication.ensureAuthenticaded, CourseController.store);
+routes.get('/cursos', authentication.ensureAuthenticaded, is(['admin', 'coordenador']), CourseController.index);
+routes.post('/cursos', authentication.ensureAuthenticaded, is(['admin', 'coordenador']), CourseController.store);
 
-// routes.get('/classes', ClassController.index);
-routes.post('/classes',authentication.ensureAuthenticaded, ClassController.store);
+routes.get('/turmas', authentication.ensureAuthenticaded, is(['coordenador']), ClassController.filtrar_com_unidade);
+routes.post('/turmas',authentication.ensureAuthenticaded, is(['coordenador']), ClassController.store);
 
-routes.get('/statuses', authentication.ensureAuthenticaded, StatusController.index);
-routes.post('/statuses', authentication.ensureAuthenticaded, StatusController.store);
+routes.get('/statuses', authentication.ensureAuthenticaded, is(['admin', 'coordenador']), StatusController.index);
+routes.post('/statuses', authentication.ensureAuthenticaded, is(['admin', 'coordenador']), StatusController.store);
 
 
 routes.post('/matriculas',
@@ -55,7 +55,7 @@ EnrollmentController.store
 routes.get('/matriculas',
 authentication.ensureAuthenticaded,
 is(['coordenador']),
-EnrollmentController.filtrar_sem_unidade);
+EnrollmentController.filtrar_com_unidade);
 
 
 module.exports = routes;
