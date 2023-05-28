@@ -9,12 +9,18 @@ const Status = require('../models/Status');
 
 module.exports = {
     async update(req, res) {
+        const user_id = req.userId;
+        const user = await User.findByPk(user_id);
         const {enrollment_id} = req.params;
         const {status_id} = req.body;
         const status = await Status.findByPk(status_id);
         const enrollment = await Enrollment.findByPk(enrollment_id);
         if(!enrollment) {
             return res.status(400).json({"error" : "Matrícula não foi encontrada"});
+        }
+
+        if(user.unit_id != 1 && enrollment.unit_id != user.unit_id) {
+            return res.status(401).json("Você não tem autorização para atualizar esta matrícula");
         }
 
         
@@ -81,9 +87,9 @@ module.exports = {
             student_rg,
             student_gender, 
             student_sair_sozinho,
-            course_name,
+            course_id,
             unit_id,
-            class_name
+            class_id
         } = req.body;
 
 
@@ -121,23 +127,22 @@ module.exports = {
             }
         })
 
-        const course = await Course.findOne({
-            where: {
-                name : course_name
-            }
-        });
+        const course = await Course.findByPk(course_id);
+        if(!course) {
+            return res.status(400).json({"erro" : "Este curso não existe"});
+        }
 
-        const _class = await Class.findOne({
-            where: {
-                name : class_name
-            }
-        });
+        const _class = await Class.findByPk(class_id);
+
+        if(!_class) {
+            return res.status(400).json({"erro" : "Esta turma não existe"});
+        }
 
         const enrollment = await Enrollment.create({
             student_id : student.id,
             responsible_id : responsible.id,
-            course_id : course.id,
-            class_id : _class.id,
+            course_id : course_id,
+            class_id : class_id,
             unit_id : unit_id,
             status_id : 1,
             user_id: req.userId
@@ -155,10 +160,16 @@ module.exports = {
     },
 
     async delete(req, res) {
+        const user_id = req.userId;
+        const user = await User.findByPk(user_id);
         const {enrollment_id} = req.params;
         const enrollment = await Enrollment.findByPk(enrollment_id)
         if(!enrollment) {
             return res.status(400).json({"error" : "Matrícula não foi encontrada"});
+        }
+
+        if(user.unit_id != 1 && enrollment.unit_id != user.unit_id) {
+            return res.status(401).json("Você não tem autorização para deletar esta matrícula");
         }
 
         enrollment.destroy();

@@ -50,19 +50,23 @@ routes.post('/statuses', StatusController.store);
 
 routes.post('/matriculas',
 authentication.ensureAuthenticaded,
+is(['Administrador', 'Divulgador']),
 EnrollmentController.store
 );
 
 routes.get('/matriculas',
 authentication.ensureAuthenticaded,
+is(['Administrador', 'Coordenador']),
 EnrollmentController.filtrar_com_unidade);
 
 routes.patch('/matriculas/:enrollment_id',
 authentication.ensureAuthenticaded,
+is(['Administrador', 'Coordenador']),
 EnrollmentController.update);
 
 routes.delete('/matriculas/:enrollment_id',
 authentication.ensureAuthenticaded,
+is(['Administrador', 'Coordenador']),
 EnrollmentController.delete);
 
 

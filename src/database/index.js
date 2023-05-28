@@ -13,6 +13,7 @@ const Enrollment = require('../models/Enrollment');
 const Unit = require('../models/Unit');
 
 
+
 const connection = new Sequelize(dbConfig);
 
 
@@ -37,5 +38,6 @@ Status.associate(connection.models);
 Class.associate(connection.models);
 Enrollment.associate(connection.models);
 Unit.associate(connection.models);
+
 
 module.exports = connection;

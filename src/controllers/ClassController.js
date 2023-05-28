@@ -1,7 +1,9 @@
 const Class = require('../models/Class');
 const Course = require('../models/Course');
+const Enrollment = require('../models/Enrollment');
 const Unit = require('../models/Unit');
 const User = require('../models/User');
+
 
 module.exports = {
     
@@ -11,6 +13,7 @@ module.exports = {
             where: {
                 class_id : class_id
             },
+            
             include: [
                 {association: 'student', attributes: ['name']},
                 {association: 'course', attributes : ['name']},
