@@ -8,12 +8,12 @@ const User = require('../models/User');
 module.exports = {
     
     async exibir_turma(req, res) {
-        const class_id = req.params;
+        const {class_id} = req.params;
         const enrollments = await Enrollment.findAll({
             where: {
                 class_id : class_id
             },
-            
+            attributes: ['id'],
             include: [
                 {association: 'student', attributes: ['name']},
                 {association: 'course', attributes : ['name']},

@@ -40,9 +40,9 @@ routes.post('/unidades', UnitController.store);
 routes.get('/cursos', CourseController.index);
 routes.post('/cursos', CourseController.store);
 
-routes.get('/turmas/:class_id', ClassController.exibir_turma);
-routes.get('/turmas', ClassController.filtrar_com_unidade);
-routes.post('/turmas',ClassController.store);
+routes.get('/turmas/:class_id', authentication.ensureAuthenticaded, ClassController.exibir_turma);
+routes.get('/turmas', authentication.ensureAuthenticaded, ClassController.filtrar_com_unidade);
+routes.post('/turmas', authentication.ensureAuthenticaded, ClassController.store);
 
 routes.get('/statuses', StatusController.index);
 routes.post('/statuses', StatusController.store);
