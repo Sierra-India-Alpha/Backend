@@ -8,7 +8,15 @@ const User = require('../models/User');
 module.exports = {
     
     async exibir_turma(req, res) {
+        const user_id = req.userId;
+        const user = await User.findByPk(user_id);
         const {class_id} = req.params;
+        const _class = await Class.findByPk(class_id);
+
+        if(user.unit_id != 1 && user.unit_id != _class.unit_id) {
+            return res.status(401).json({"erro": "Você não tem autorização para acessar esta turma"});
+        }
+        
         const enrollments = await Enrollment.findAll({
             where: {
                 class_id : class_id

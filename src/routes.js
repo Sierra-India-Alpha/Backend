@@ -20,32 +20,113 @@ const Class = require('./models/Class');
 
 const routes = express.Router();
 
-routes.post('/login', SessionController.store);
+routes.post('/login', 
+SessionController.store);
 
-routes.get('/users',  UserController.index);
-routes.post('/users', UserController.store);
-routes.get('/users/:user_id', UserAccessControlListController.index);
-routes.post('/users/:user_id', UserAccessControlListController.store);
 
-routes.get('/roles', RoleController.index);
-routes.post('/roles', RoleController.store);
-routes.get('/roles/:role_id', RolesPermissionsController.index);
-routes.post('/roles/:role_id', RolesPermissionsController.store);
 
-routes.get('/permissions', PermissionController.index);
-routes.post('/permissions', PermissionController.store);
+routes.get('/users',  
+authentication.ensureAuthenticaded, 
+is(['Administrador']),
+UserController.index);
 
-routes.post('/unidades', UnitController.store);
+routes.post('/users', 
+authentication.ensureAuthenticaded, 
+is(['Administrador']),
+UserController.store);
 
-routes.get('/cursos', CourseController.index);
-routes.post('/cursos', CourseController.store);
+routes.get('/users/:user_id', 
+authentication.ensureAuthenticaded, 
+is(['Administrador']),
+UserAccessControlListController.index);
 
-routes.get('/turmas/:class_id', authentication.ensureAuthenticaded, ClassController.exibir_turma);
-routes.get('/turmas', authentication.ensureAuthenticaded, ClassController.filtrar_com_unidade);
-routes.post('/turmas', authentication.ensureAuthenticaded, ClassController.store);
+routes.post('/users/:user_id', 
+authentication.ensureAuthenticaded, 
+is(['Administrador']),
+UserAccessControlListController.store);
 
-routes.get('/statuses', StatusController.index);
-routes.post('/statuses', StatusController.store);
+
+
+routes.get('/roles', 
+authentication.ensureAuthenticaded, 
+is(['Administrador']),
+RoleController.index);
+
+routes.post('/roles', 
+authentication.ensureAuthenticaded, 
+is(['Administrador']),
+RoleController.store);
+
+routes.get('/roles/:role_id', 
+authentication.ensureAuthenticaded, 
+is(['Administrador']),
+RolesPermissionsController.index);
+
+routes.post('/roles/:role_id', 
+authentication.ensureAuthenticaded, 
+is(['Administrador']),
+RolesPermissionsController.store);
+
+
+
+routes.get('/permissions', 
+authentication.ensureAuthenticaded, 
+is(['Administrador']),
+PermissionController.index);
+
+routes.post('/permissions', 
+authentication.ensureAuthenticaded, 
+is(['Administrador']),
+PermissionController.store);
+
+
+
+routes.post('/unidades', 
+authentication.ensureAuthenticaded, 
+is(['Administrador']),
+UnitController.store);
+
+
+
+routes.get('/cursos', 
+authentication.ensureAuthenticaded, 
+is(['Administrador']), 
+CourseController.index);
+
+routes.post('/cursos', 
+authentication.ensureAuthenticaded, 
+is(['Administrador']),
+CourseController.store);
+
+
+
+routes.get('/turmas/:class_id', 
+authentication.ensureAuthenticaded, 
+is(['Administrador', 'Coordenador']),
+ClassController.exibir_turma);
+
+routes.get('/turmas', 
+authentication.ensureAuthenticaded, 
+is(['Administrador', 'Coordenador']),
+ClassController.filtrar_com_unidade);
+
+routes.post('/turmas', 
+authentication.ensureAuthenticaded,
+is(['Administrador', 'Coordenador']), 
+ClassController.store);
+
+
+
+routes.get('/statuses', 
+authentication.ensureAuthenticaded, 
+is(['Administrador']),
+StatusController.index);
+
+routes.post('/statuses', 
+authentication.ensureAuthenticaded,
+is(['Administrador']), 
+StatusController.store);
+
 
 
 routes.post('/matriculas',

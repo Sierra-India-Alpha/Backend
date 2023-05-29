@@ -136,8 +136,11 @@ module.exports = {
 
         if(!_class) {
             return res.status(400).json({"erro" : "Esta turma não existe"});
-        }
+        }   
 
+        if(_class.unit_id != unit_id || _class.course_id != course_id) {
+            return res.status(400).json({"erro": "Não é possível realizar o cadastro nesta turma"});
+        }
         const enrollment = await Enrollment.create({
             student_id : student.id,
             responsible_id : responsible.id,
