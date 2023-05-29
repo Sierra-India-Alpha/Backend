@@ -24,7 +24,6 @@ routes.post('/login',
 SessionController.store);
 
 
-
 routes.get('/users',  
 authentication.ensureAuthenticaded, 
 is(['Administrador']),

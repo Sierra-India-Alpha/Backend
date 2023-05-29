@@ -14,7 +14,7 @@ module.exports = {
 
             const { sub } = decode(token);
             req.userId = parseInt(sub);
-
+            
             return next();
         } catch(err) {
             return res.status(401).end();

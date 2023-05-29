@@ -16,9 +16,17 @@ module.exports = {
             return res.status(400).json({"error": "Usuário ou senha incorretos"});
         }
 
-    const token = sign({}, "abec7267-d4b5-44e8-9286-533d407e2297", {
-            subject : user.id.toString()
+        const roles = await user.getRoles({
+            
+            attributes: ['id'],
+            
+            joinTableAttributes : [] });
+
+        const token = sign({roles : roles}, "abec7267-d4b5-44e8-9286-533d407e2297", {
+            subject : user.id.toString(),
         })
+
+        
         return res.json(token);
     }
 }
