@@ -73,7 +73,7 @@ module.exports = {
     async store(req, res) {
         
         const { responsible_name,
-            responsible_birth_date,
+            // responsible_birth_date,
             responsible_email, 
             responsible_phone_number,
             responsible_cpf,
@@ -87,7 +87,7 @@ module.exports = {
             responsible_city,
             responsible_uf,
             student_name, 
-            student_birth_date,
+            // student_birth_date,
             student_cpf,
             student_rg,
             student_gender, 
@@ -97,9 +97,10 @@ module.exports = {
             class_id
         } = req.body;
 
-        
-        const isValidResponsible = validezCpf(responsible_cpf);
-        const isValidStudent = validezCpf(student_cpf);
+        const responsible_cpf_digitos = responsible_cpf.replace(/\D/g, "");
+        const student_cpf_digitos = student_cpf.replace(/\D/g, "");
+        const isValidResponsible = validezCpf(responsible_cpf_digitos);
+        const isValidStudent = validezCpf(student_cpf_digitos);
         
         if(!isValidResponsible || !isValidStudent) {
             return res.json({"erro": "Cpf inválido"});
@@ -114,11 +115,11 @@ module.exports = {
 
         const [student] = await Student.findOrCreate({
             where: {
-                cpf : student_cpf
+                cpf : student_cpf_digitos
             },
             defaults: {
                 name: student_name,
-                birth_date: student_birth_date,
+                // birth_date: student_birth_date,
                 rg: student_rg,
                 gender: student_gender,
                 sair_sozinho: student_sair_sozinho
@@ -127,11 +128,11 @@ module.exports = {
 
         const [responsible] = await Responsible.findOrCreate({
             where: {
-                cpf : responsible_cpf
+                cpf : responsible_cpf_digitos
             },
             defaults: {
                 name: responsible_name,
-                birth_date: responsible_birth_date,
+                // birth_date: responsible_birth_date,
                 email: responsible_email,
                 phone_number: responsible_phone_number,
                 rg: responsible_rg,
