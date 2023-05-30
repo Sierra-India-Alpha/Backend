@@ -73,7 +73,7 @@ module.exports = {
     async store(req, res) {
         
         const { responsible_name,
-            // responsible_birth_date,
+            responsible_birth_date,
             responsible_email, 
             responsible_phone_number,
             responsible_cpf,
@@ -87,7 +87,7 @@ module.exports = {
             responsible_city,
             responsible_uf,
             student_name, 
-            // student_birth_date,
+            student_birth_date,
             student_cpf,
             student_rg,
             student_gender, 
@@ -119,7 +119,7 @@ module.exports = {
             },
             defaults: {
                 name: student_name,
-                // birth_date: student_birth_date,
+                birth_date: student_birth_date,
                 rg: student_rg,
                 gender: student_gender,
                 sair_sozinho: student_sair_sozinho
@@ -132,7 +132,7 @@ module.exports = {
             },
             defaults: {
                 name: responsible_name,
-                // birth_date: responsible_birth_date,
+                birth_date: responsible_birth_date,
                 email: responsible_email,
                 phone_number: responsible_phone_number,
                 rg: responsible_rg,
