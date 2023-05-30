@@ -2,6 +2,12 @@ const Course = require('../models/Course');
 const Unit = require('../models/Unit');
 
 module.exports ={
+    async index(req, res) { 
+        const unities = await Unit.findAll();
+        
+        return res.json(unities);
+    },
+    
     async store(req, res){
         const { name, cnpj} = req.body;
         const unitExists = await Unit.findOne({

@@ -73,12 +73,17 @@ authentication.ensureAuthenticaded,
 is(['Administrador']),
 PermissionController.index);
 
+
 routes.post('/permissions', 
 authentication.ensureAuthenticaded, 
 is(['Administrador']),
 PermissionController.store);
 
 
+routes.get('/unidades', 
+authentication.ensureAuthenticaded,
+is(['Administrador']),
+UnitController.index);
 
 routes.post('/unidades', 
 authentication.ensureAuthenticaded, 
