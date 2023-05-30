@@ -1,3 +1,5 @@
+
+
 const Student = require('../models/Student');
 const Responsible = require('../models/Responsible');
 const Enrollment = require('../models/Enrollment');
@@ -6,6 +8,9 @@ const Class = require('../models/Class');
 const Unit = require('../models/Unit');
 const User = require('../models/User');
 const Status = require('../models/Status');
+
+const validezCpf  = require('../middlewares/validezCpf');
+const {validezEmail}= require('../middlewares/validezEmail');
 
 module.exports = {
     async update(req, res) {
@@ -92,6 +97,20 @@ module.exports = {
             class_id
         } = req.body;
 
+        
+        const isValidResponsible = validezCpf(responsible_cpf);
+        const isValidStudent = validezCpf(student_cpf);
+        
+        if(!isValidResponsible || !isValidStudent) {
+            return res.json({"erro": "Cpf inválido"});
+        }
+
+        
+        if(!validezEmail(responsible_email)) {
+            return res.json({"erro" : "Email inválido"});
+        }
+
+        
 
         const [student] = await Student.findOrCreate({
             where: {
@@ -105,7 +124,7 @@ module.exports = {
                 sair_sozinho: student_sair_sozinho
             }
         })
-        
+
         const [responsible] = await Responsible.findOrCreate({
             where: {
                 cpf : responsible_cpf
