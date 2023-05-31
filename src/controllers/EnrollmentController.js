@@ -99,7 +99,7 @@ module.exports = {
         const student_cpf_digitos = student_cpf.replace(/\D/g, "");
         const isValidResponsible = validezCpf(responsible_cpf_digitos);
         const isValidStudent = validezCpf(student_cpf_digitos);
-        
+
         if(!isValidResponsible || !isValidStudent) {
             return res.json({"erro": "Cpf inválido"});
         }
@@ -110,7 +110,7 @@ module.exports = {
         }
 
         
-
+        console.log("passou validate")
         const [student] = await Student.findOrCreate({
             where: {
                 cpf : student_cpf_digitos
@@ -149,6 +149,7 @@ module.exports = {
         if(!course) {
             return res.status(400).json({"erro" : "Este curso não existe"});
         }
+        console.log(class_id)
 
         const _class = await Class.findByPk(class_id);
 

@@ -3,7 +3,7 @@ const User = require('../models/User');
 function is(rolesRoutes) {
     return async (req, res, next) => {
         const {userId} = req;
-
+        
         const user = await User.findOne({
             where: {id: userId},
             include: [
@@ -12,6 +12,8 @@ function is(rolesRoutes) {
                 }
             ]
         });
+
+        
 
         if(!user) {
             return res.status(400).json({"error" : "User doesn't exist"});

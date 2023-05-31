@@ -40,7 +40,7 @@ module.exports = {
         const unit = await user.getUnit();
         if(unit.id === 1) {
             const allClasses = await Class.findAll({
-                attributes: ['name', 'max_students', 'start_of_class', 'end_of_class'],
+                attributes: ['id', 'name', 'max_students', 'start_of_class', 'end_of_class'],
             include: [
                 { association: 'course', attributes: ['name']},
                 { association: 'unit', attributes: ['name']}
