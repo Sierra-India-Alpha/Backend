@@ -82,7 +82,7 @@ PermissionController.store);
 
 routes.get('/unidades', 
 authentication.ensureAuthenticaded,
-is(['Administrador']),
+is(['Administrador', 'Divulgador']),
 UnitController.index);
 
 routes.post('/unidades', 
@@ -94,7 +94,7 @@ UnitController.store);
 
 routes.get('/cursos', 
 authentication.ensureAuthenticaded, 
-is(['Administrador']), 
+is(['Administrador', 'Coordenador', 'Divulgador']), 
 CourseController.index);
 
 routes.post('/cursos', 
@@ -111,7 +111,7 @@ ClassController.exibir_turma);
 
 routes.get('/turmas', 
 authentication.ensureAuthenticaded, 
-is(['Administrador', 'Coordenador']),
+is(['Administrador', 'Coordenador', 'Divulgador']),
 ClassController.filtrar_com_unidade);
 
 routes.post('/turmas', 
