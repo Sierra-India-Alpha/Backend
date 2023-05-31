@@ -1,9 +1,10 @@
 module.exports = {
     dialect : 'mysql',
-    host: 'localhost',
-    username: 'root',
-    password: '',
-    database: 'SIA',
+    host: process.env.MYSQLHOST,
+    database: process.env.MYSQLDATABASE,
+    port: process.env.MYSQLPORT,
+    user: process.env.MYSQLUSER,
+    password: process.env.MYSQLPASSWORD,
     define: {
         timestamps: true,
         underscored: true,
