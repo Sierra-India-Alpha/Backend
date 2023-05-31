@@ -41,14 +41,13 @@ module.exports = {
         
         if(unit.id === 1) {
             const allEnrollments = await Enrollment.findAll({
-                attributes: ['id'],
             include: [
-                { association: 'student', attributes: ['name']},
-                { association: 'responsible', attributes: ['name', 'phone_number', 'email']},
-                { association: 'unit', attributes: ['name']},
-                { association: 'course', attributes: ['name']},
-                { association: 'class', attributes: ['name']},
-                { association: 'status', attributes: ['name']}
+                { association: 'student'},
+                { association: 'responsible'},
+                { association: 'unit'},
+                { association: 'course'},
+                { association: 'class'},
+                { association: 'status'}
             ]
             })
 
@@ -58,14 +57,13 @@ module.exports = {
             where: {
                 unit_id : unit.id
             },
-            attributes: ['id'],
             include: [
-                { association: 'student', attributes: ['name']},
-                { association: 'responsible', attributes: ['name', 'phone_number', 'email']},
-                { association: 'unit', attributes: ['name']},
-                { association: 'course', attributes: ['name']},
-                { association: 'class', attributes: ['name']},
-                { association: 'status', attributes: ['name']}
+                { association: 'student'},
+                { association: 'responsible'},
+                { association: 'unit'},
+                { association: 'course'},
+                { association: 'class'},
+                { association: 'status'}
             ]
         });
         return res.json(enrollments);
