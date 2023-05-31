@@ -9,7 +9,9 @@ module.exports = {
       start_of_class: '08:30',
       end_of_class: '11:00',
       unit_id: 2,
-      course_id: 1
+      course_id: 1,
+      created_at: new Date(),
+      updated_at: new Date()
     },
     {
       name: 'Turma Bravo Embu',
@@ -17,7 +19,9 @@ module.exports = {
       start_of_class: '11:30',
       end_of_class: '14:00',
       unit_id: 2,
-      course_id: 1
+      course_id: 1,
+      created_at: new Date(),
+      updated_at: new Date()
     },
     {
       name: 'Turma Charlie Embu',
@@ -25,7 +29,9 @@ module.exports = {
       start_of_class: '14:30',
       end_of_class: '17:00',
       unit_id: 2,
-      course_id: 1
+      course_id: 1,
+      created_at: new Date(),
+      updated_at: new Date()
     },
     {
       name: 'Turma Alpha Taboão',
@@ -33,7 +39,9 @@ module.exports = {
       start_of_class: '08:30',
       end_of_class: '11:00',
       unit_id: 3,
-      course_id: 1
+      course_id: 1,
+      created_at: new Date(),
+      updated_at: new Date()
     },
     {
       name: 'Turma Bravo Taboão',
@@ -41,7 +49,9 @@ module.exports = {
       start_of_class: '11:30',
       end_of_class: '14:00',
       unit_id: 3,
-      course_id: 1
+      course_id: 1,
+      created_at: new Date(),
+      updated_at: new Date()
     },
     {
       name: 'Turma Charlie Taboão',
@@ -49,7 +59,9 @@ module.exports = {
       start_of_class: '14:30',
       end_of_class: '17:00',
       unit_id: 3,
-      course_id: 1
+      course_id: 1,
+      created_at: new Date(),
+      updated_at: new Date()
     }])
   },
 
