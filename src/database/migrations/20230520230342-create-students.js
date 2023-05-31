@@ -16,7 +16,8 @@ module.exports = {
       },
       birth_date: {
         type: Sequelize.DATEONLY,
-        allowNull: false
+        allowNull: false,
+        defaultValue: "0000-00-00"
       },
       cpf: {
         type: Sequelize.STRING(11),
@@ -29,6 +30,7 @@ module.exports = {
       gender: {
         type: Sequelize.TINYINT(1),
         allowNull: false,
+        defaultValue : 3
       },
       
       sair_sozinho: {

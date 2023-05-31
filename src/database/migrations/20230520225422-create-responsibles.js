@@ -17,7 +17,8 @@ module.exports = {
       },
       birth_date: {
         type: Sequelize.DATEONLY,
-        allowNull: false
+        allowNull: false,
+        defaultValue: "0000-00-00"
       },
       email: {
         type: Sequelize.STRING,
@@ -37,7 +38,8 @@ module.exports = {
       },
       gender: {
         type: Sequelize.TINYINT(1),
-        allowNull: false
+        allowNull: false,
+        defaultValue : 2
       },
 
       street: {
