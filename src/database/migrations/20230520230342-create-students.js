@@ -16,8 +16,7 @@ module.exports = {
       },
       birth_date: {
         type: Sequelize.DATEONLY,
-        allowNull: false,
-        defaultValue: "0000-00-00"
+        allowNull: true
       },
       cpf: {
         type: Sequelize.STRING(11),
